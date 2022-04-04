@@ -26,16 +26,16 @@ class LoginFragment : Fragment(),LoginContract.RepositoryView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = restorePresenter()
         presenter.onAttach(this)
         binding.btnLogin.setOnClickListener {
             presenter.onLogin(binding.userLogin.text.toString(),binding.userPassword.text.toString())
         }
-    }
-
-    private fun restorePresenter(): LoginContract.RepositoryPresenter {
-        val presenter = requireActivity().lastCustomNonConfigurationInstance as? LoginPresenter
-        return presenter ?: LoginPresenter()
+        binding.btnRegister.setOnClickListener {
+            Toast.makeText(requireContext(),"Заглушка",Toast.LENGTH_SHORT).show()
+        }
+        binding.forgotPassword.setOnClickListener {
+            Toast.makeText(requireContext(),"Заглушка",Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun setSuccess() {
@@ -60,7 +60,9 @@ class LoginFragment : Fragment(),LoginContract.RepositoryView {
 
     companion object {
         @JvmStatic
-        fun newInstance() = LoginFragment()
+        fun newInstance(presenter: LoginContract.RepositoryPresenter) = LoginFragment().apply {
+            this.presenter = presenter
+        }
     }
 
     override fun onDestroy() {
