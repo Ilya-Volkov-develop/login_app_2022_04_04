@@ -1,7 +1,8 @@
-package ru.iliavolkov.loginapp
+package ru.iliavolkov.loginapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.iliavolkov.loginapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -10,8 +11,7 @@ class MainActivity : AppCompatActivity() {
 
         if(savedInstanceState == null){
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container,LoginFragment.newInstance())
-                .addToBackStack("")
+                .replace(R.id.container, LoginFragment.newInstance())
                 .commit()
         }
     }

@@ -6,4 +6,5 @@
     <string name="reestablish_password">Reestablish</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
+    <string name="sign_up_text">Don\'t have an Account? Sign Up</string>
 </resources>
