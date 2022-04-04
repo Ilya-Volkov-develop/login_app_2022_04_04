@@ -4,7 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import ru.iliavolkov.loginapp.model.LoginRequest
 
-class LoginPresenter:LoginContract.RepositoryPresenter {
+class LoginPresenter : LoginContract.RepositoryPresenter {
     private var isSuccess: Boolean = false
     lateinit var view: LoginContract.RepositoryView
 
@@ -19,16 +19,15 @@ class LoginPresenter:LoginContract.RepositoryPresenter {
 
     override fun onLogin(login: String, password: String) {
         view.showProgress()
-        Thread{
+        Thread {
             Thread.sleep(1000)
             //И малейшего представлнения не имею как можно обойтись без Handler(Looper.getMainLooper())
-            Handler(Looper.getMainLooper()).post{
+            Handler(Looper.getMainLooper()).post {
                 view.hideProgress()
-                if (LoginRequest().request(login,password)) {
+                if (LoginRequest().request(login, password)) {
                     view.setSuccess()
                     isSuccess = true
-                }
-                else {
+                } else {
                     view.setError("Логин и пароль не совпадают")
                     isSuccess = false
                 }
