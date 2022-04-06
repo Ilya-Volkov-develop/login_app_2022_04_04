@@ -1,4 +1,4 @@
-package ru.iliavolkov.loginapp.presenter
+package ru.iliavolkov.loginapp.ui.login
 
 class LoginContract {
 
