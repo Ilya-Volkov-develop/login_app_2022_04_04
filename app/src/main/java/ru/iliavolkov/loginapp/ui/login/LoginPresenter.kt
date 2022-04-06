@@ -1,9 +1,10 @@
 package ru.iliavolkov.loginapp.ui.login
 
-import android.os.Handler
-import android.os.Looper
+import ru.iliavolkov.loginapp.model.LoginUsecase
 
-class LoginPresenter : LoginContract.RepositoryPresenter {
+class LoginPresenter(
+    private val loginUsecase: LoginUsecase
+) : LoginContract.RepositoryPresenter {
     private var isSuccess: Boolean = false
     lateinit var view: LoginContract.RepositoryView
 
@@ -18,19 +19,15 @@ class LoginPresenter : LoginContract.RepositoryPresenter {
 
     override fun onLogin(login: String, password: String) {
         view.showProgress()
-        Thread {
-            Thread.sleep(1000)
-            //И малейшего представлнения не имею как можно обойтись без Handler(Looper.getMainLooper())
-            Handler(Looper.getMainLooper()).post {
-                view.hideProgress()
-                isSuccess = if (true) {
-                    view.setSuccess()
-                    true
-                } else {
-                    view.setError("Логин и пароль не совпадают")
-                    false
-                }
+        loginUsecase.login(login, password) { result ->
+            view.hideProgress()
+            isSuccess = if (result) {
+                view.setSuccess()
+                true
+            } else {
+                view.setError("Логин и пароль не совпадают")
+                false
             }
-        }.start()
+        }
     }
 }

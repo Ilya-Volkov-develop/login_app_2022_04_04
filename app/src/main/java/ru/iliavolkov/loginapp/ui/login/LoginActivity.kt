@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import ru.iliavolkov.loginapp.app
 import ru.iliavolkov.loginapp.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity(), LoginContract.RepositoryView {
@@ -61,7 +62,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.RepositoryView {
     @Suppress("DEPRECATION")
     private fun restorePresenter(): LoginContract.RepositoryPresenter {
         val presenter = lastCustomNonConfigurationInstance as? LoginPresenter
-        return presenter ?: LoginPresenter()
+        return presenter ?: LoginPresenter(app.loginUsecase)
     }
 
     override fun onRetainCustomNonConfigurationInstance(): Any {
