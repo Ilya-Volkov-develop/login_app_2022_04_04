@@ -1,8 +1,7 @@
-package ru.iliavolkov.loginapp.presenter
+package ru.iliavolkov.loginapp.ui.login
 
 import android.os.Handler
 import android.os.Looper
-import ru.iliavolkov.loginapp.model.LoginRequest
 
 class LoginPresenter : LoginContract.RepositoryPresenter {
     private var isSuccess: Boolean = false
@@ -24,12 +23,12 @@ class LoginPresenter : LoginContract.RepositoryPresenter {
             //И малейшего представлнения не имею как можно обойтись без Handler(Looper.getMainLooper())
             Handler(Looper.getMainLooper()).post {
                 view.hideProgress()
-                if (LoginRequest().request(login, password)) {
+                isSuccess = if (true) {
                     view.setSuccess()
-                    isSuccess = true
+                    true
                 } else {
                     view.setError("Логин и пароль не совпадают")
-                    isSuccess = false
+                    false
                 }
             }
         }.start()

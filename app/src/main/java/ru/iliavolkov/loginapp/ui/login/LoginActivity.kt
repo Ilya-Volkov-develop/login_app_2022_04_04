@@ -1,4 +1,4 @@
-package ru.iliavolkov.loginapp.view
+package ru.iliavolkov.loginapp.ui.login
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,31 +6,36 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ru.iliavolkov.loginapp.databinding.ActivityLoginBinding
-import ru.iliavolkov.loginapp.presenter.LoginContract
-import ru.iliavolkov.loginapp.presenter.LoginPresenter
 
 class LoginActivity : AppCompatActivity(), LoginContract.RepositoryView {
+
     private lateinit var presenter: LoginContract.RepositoryPresenter
     private lateinit var binding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         presenter = restorePresenter()
         presenter.onAttach(this)
-        binding.btnLogin.setOnClickListener {
-            presenter.onLogin(
-                binding.userLogin.text.toString(),
-                binding.userPassword.text.toString()
-            )
-        }
-        binding.btnRegister.setOnClickListener {
-            Toast.makeText(this, "Заглушка", Toast.LENGTH_SHORT).show()
-        }
-        binding.forgotPassword.setOnClickListener {
-            Toast.makeText(this, "Заглушка", Toast.LENGTH_SHORT).show()
-        }
+        initButton()
+    }
 
+    private fun initButton() {
+        with(binding) {
+            btnLogin.setOnClickListener {
+                presenter.onLogin(
+                    userLogin.text.toString(),
+                    userPassword.text.toString()
+                )
+            }
+            btnRegister.setOnClickListener {
+                Toast.makeText(this@LoginActivity, "Заглушка", Toast.LENGTH_SHORT).show()
+            }
+            forgotPassword.setOnClickListener {
+                Toast.makeText(this@LoginActivity, "Заглушка", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun setSuccess() {
